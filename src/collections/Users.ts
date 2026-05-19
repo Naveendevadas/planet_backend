@@ -3,7 +3,7 @@ import type { CollectionConfig } from 'payload'
 export const Users: CollectionConfig = {
   slug: 'users',
 
-  auth: true, // ✅ keep this
+  auth: true,
 
   admin: {
     useAsTitle: 'email',
@@ -14,38 +14,26 @@ export const Users: CollectionConfig = {
     read: ({ req }) => {
       const user = req.user as any
       if (!user) return false
-
       if (['admin', 'super_admin'].includes(user.role)) return true
-
-      // staff can see only themselves
-      return {
-        id: {
-          equals: user.id,
-        },
-      }
+      return { id: { equals: user.id } }
     },
 
     create: ({ req, data }) => {
       const user = req.user as any
       if (!user) return false
-
       if (user.role === 'super_admin') return true
       if (user.role === 'admin' && data?.role === 'staff') return true
-
       return false
     },
 
     update: ({ req, data }) => {
       const user = req.user as any
       if (!user) return false
-
       if (user.role === 'super_admin') return true
-
       if (user.role === 'admin') {
         if (data?.role === 'super_admin') return false
         return true
       }
-
       return false
     },
 
@@ -91,23 +79,10 @@ export const Users: CollectionConfig = {
       unique: true,
     },
     {
-      name: 'status',
-      type: 'select',
-      defaultValue: 'active',
-      options: [
-        { label: 'Active', value: 'active' },
-        { label: 'Blocked', value: 'blocked' },
-      ],
-    },
-    {
-      name: 'lastLogin',
-      type: 'date',
-    },
-    {
       name: 'restaurant',
       type: 'relationship',
       relationTo: 'restaurant',
-    }
+    },
   ],
 
   timestamps: true,
