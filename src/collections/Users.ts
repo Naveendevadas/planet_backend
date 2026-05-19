@@ -18,13 +18,7 @@ export const Users: CollectionConfig = {
       return { id: { equals: user.id } }
     },
 
-    create: ({ req, data }) => {
-      const user = req.user as any
-      if (!user) return false
-      if (user.role === 'super_admin') return true
-      if (user.role === 'admin' && data?.role === 'staff') return true
-      return false
-    },
+    create: () => true, // ⚠️ TEMPORARY — remove after creating super_admin user
 
     update: ({ req, data }) => {
       const user = req.user as any
