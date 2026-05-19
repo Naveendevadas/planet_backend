@@ -50,15 +50,15 @@ export default buildConfig({
   ],
 
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || 'mysecret',
+secret: process.env.PAYLOAD_SECRET || 'a-very-long-random-secret-123!@#',
 
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
 
   db: mongooseAdapter({
-    url: process.env.DATABASE_URL || '',
-  }),
+  url: process.env.DATABASE_URL || 'mongodb://localhost:27017/planet',
+}),
 
   sharp,
   plugins: [],
