@@ -20,7 +20,8 @@ export const Users: CollectionConfig = {
 
 create: ({ req }) => {
   const user = req.user as any
-  return ['admin', 'super_admin'].includes(user?.role)
+  if (!user) return false  // ✅ safely return false if not logged in
+  return ['admin', 'super_admin'].includes(user.role)
 },
     update: ({ req, data }) => {
       const user = req.user as any

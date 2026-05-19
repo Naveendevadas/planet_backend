@@ -31,12 +31,14 @@ export default buildConfig({
     'http://localhost:3001',
     'http://localhost:3000',
     'https://planet-restuarent-frontend.vercel.app',
+    'https://planet-backend-htep.onrender.com',
   ],
 
   csrf: [
     'http://localhost:5173',
     'http://localhost:3001',
     'https://planet-restuarent-frontend.vercel.app',
+    'https://planet-backend-htep.onrender.com'
   ],
 
   collections: [
