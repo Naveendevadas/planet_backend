@@ -6,6 +6,7 @@ export const testUser = {
   password: 'test',
   name: 'Test User',
   phone: '0000000000',
+  role: 'staff' as const,
 }
 
 /**

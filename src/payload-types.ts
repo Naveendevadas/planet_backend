@@ -147,11 +147,7 @@ export interface CustomerAuthOperations {
 export interface User {
   id: string;
   name: string;
-  role: 'super_admin' | 'admin' | 'staff';
-  staffType?: ('kitchen' | 'order' | 'parking') | null;
   phone: string;
-  status?: ('active' | 'blocked') | null;
-  lastLogin?: string | null;
   restaurant?: (string | null) | Restaurant;
   updatedAt: string;
   createdAt: string;
@@ -369,11 +365,7 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
-  role?: T;
-  staffType?: T;
   phone?: T;
-  status?: T;
-  lastLogin?: T;
   restaurant?: T;
   updatedAt?: T;
   createdAt?: T;
