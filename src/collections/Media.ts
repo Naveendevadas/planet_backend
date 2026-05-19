@@ -1,17 +1,16 @@
 import type { CollectionConfig } from 'payload'
 
-const Media: CollectionConfig = {
+export const Media: CollectionConfig = {
   slug: 'media',
   access: {
-    read: () => true,  // ✅ Allow public read
+    read: () => true,
   },
-  upload: true,        // ✅ Simple upload config for Payload v3
   fields: [
     {
       name: 'alt',
       type: 'text',
+      required: true,
     },
   ],
+  upload: true,
 }
-
-export default Media
