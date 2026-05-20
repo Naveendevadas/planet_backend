@@ -4,9 +4,10 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 const __filename = fileURLToPath(import.meta.url)
-const dirname = path.dirname(__filename)
+const __dirname = path.dirname(__filename)
 
 const nextConfig: NextConfig = {
+  output: 'standalone',          // ← add this, needed for Render
   images: {
     localPatterns: [
       {
@@ -20,11 +21,10 @@ const nextConfig: NextConfig = {
       '.js': ['.ts', '.tsx', '.js', '.jsx'],
       '.mjs': ['.mts', '.mjs'],
     }
-
     return webpackConfig
   },
   turbopack: {
-    root: path.resolve(dirname),
+    root: path.resolve(__dirname),
   },
 }
 
