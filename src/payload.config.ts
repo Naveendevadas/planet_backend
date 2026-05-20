@@ -23,11 +23,9 @@ export default buildConfig({
     },
   },
 
-  // Backend URL
   serverURL:
     process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3000',
 
-  // Allowed frontend and backend URLs
   cors: [
     'http://localhost:5173',
     'http://localhost:3001',
@@ -72,15 +70,14 @@ export default buildConfig({
   plugins: [
     s3Storage({
       collections: {
-        media: true, // Media collection slug
+        media: true,
       },
       bucket: process.env.S3_BUCKET!,
       config: {
         region: process.env.S3_REGION!,
         credentials: {
           accessKeyId: process.env.S3_ACCESS_KEY_ID!,
-          secretAccessKey:
-            process.env.S3_SECRET_ACCESS_KEY!,
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
         },
       },
     }),
