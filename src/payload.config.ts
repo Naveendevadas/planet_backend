@@ -1,5 +1,6 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { s3Storage } from '@payloadcms/storage-s3'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -22,10 +23,11 @@ export default buildConfig({
     },
   },
 
-  // ✅ Your deployed backend URL (set via env var)
-  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3000',
+  // Backend URL
+  serverURL:
+    process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3000',
 
-  // ✅ Your Vercel frontend is now allowed
+  // Allowed frontend and backend URLs
   cors: [
     'http://localhost:5173',
     'http://localhost:3001',
@@ -38,7 +40,7 @@ export default buildConfig({
     'http://localhost:5173',
     'http://localhost:3001',
     'https://planet-restuarent-frontend.vercel.app',
-    'https://planet-backend-htep.onrender.com'
+    'https://planet-backend-htep.onrender.com',
   ],
 
   collections: [
@@ -50,16 +52,37 @@ export default buildConfig({
   ],
 
   editor: lexicalEditor(),
-secret: process.env.PAYLOAD_SECRET || 'a-very-long-random-secret-123!@#',
+
+  secret:
+    process.env.PAYLOAD_SECRET ||
+    'a-very-long-random-secret-123!@#',
 
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
 
   db: mongooseAdapter({
-  url: process.env.DATABASE_URL || 'mongodb://localhost:27017/planet',
-}),
+    url:
+      process.env.DATABASE_URL ||
+      'mongodb://localhost:27017/planet',
+  }),
 
   sharp,
-  plugins: [],
+
+  plugins: [
+    s3Storage({
+      collections: {
+        media: true, // Media collection slug
+      },
+      bucket: process.env.S3_BUCKET!,
+      config: {
+        region: process.env.S3_REGION!,
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID!,
+          secretAccessKey:
+            process.env.S3_SECRET_ACCESS_KEY!,
+        },
+      },
+    }),
+  ],
 })
