@@ -42,9 +42,6 @@
 //     "node_modules"
 //   ]
 // }
-
-
-
 {
   "compilerOptions": {
     "lib": [
@@ -61,7 +58,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "incremental": true,
     "plugins": [
       {
