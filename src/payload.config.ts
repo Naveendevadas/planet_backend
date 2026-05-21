@@ -68,18 +68,22 @@ export default buildConfig({
   sharp,
 
   plugins: [
-    s3Storage({
-      collections: {
-        media: true,
+  s3Storage({
+    collections: {
+      media: {
+        // ✅ generateFileURL goes HERE — inside the collection, not outside
+        generateFileURL: ({ filename }) =>
+          `https://${process.env.S3_BUCKET}.s3.${process.env.S3_REGION}.amazonaws.com/${filename}`,
       },
-      bucket: process.env.S3_BUCKET!,
-      config: {
-        region: process.env.S3_REGION!,
-        credentials: {
-          accessKeyId: process.env.S3_ACCESS_KEY_ID!,
-          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
-        },
+    },
+    bucket: process.env.S3_BUCKET!,
+    config: {
+      region: process.env.S3_REGION!,
+      credentials: {
+        accessKeyId: process.env.S3_ACCESS_KEY_ID!,
+        secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
       },
-    }),
-  ],
+    },
+  }),
+],
 })
