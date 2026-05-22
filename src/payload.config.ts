@@ -102,7 +102,7 @@ export default buildConfig({
   plugins: s3Configured
     ? [
         s3Storage({
-          acl: 'public-read',
+          acl: undefined,
           collections: {
             media: {
               generateFileURL: ({ filename, prefix }) =>
