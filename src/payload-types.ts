@@ -254,11 +254,35 @@ export interface Menu {
   name: string;
   description?: string | null;
   price: number;
+  /**
+   * Leave unchecked for non-veg items
+   */
   veg?: boolean | null;
   available?: boolean | null;
   isPopular?: boolean | null;
   category?:
-    | ('kerala' | 'biryani' | 'starters' | 'desserts' | 'north-indian' | 'seafood' | 'chinese' | 'continental')
+    | (
+        | 'kerala'
+        | 'biryani'
+        | 'starters'
+        | 'desserts'
+        | 'north-indian'
+        | 'seafood'
+        | 'chinese'
+        | 'continental'
+        | 'soup'
+        | 'salads'
+        | 'starter'
+        | 'oven'
+        | 'arabic-rice'
+        | 'all-time'
+        | 'wok-tossed-rice-noodle'
+        | 'breads'
+        | 'specialty-kerala-dishes'
+        | 'poultry-beef'
+        | 'vegetarian'
+        | 'juice-shakes'
+      )
     | null;
   restaurants: (string | Restaurant)[];
   image?: (string | null) | Media;
